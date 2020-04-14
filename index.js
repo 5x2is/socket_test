@@ -9,6 +9,7 @@ app.get('/',(req,res)=>{
 });
 io.on('connection',(socket)=>{
 	console.log('connected');
+	io.emit('message','ずーらー');
 });
 http.listen(PORT,()=>{
 	console.log('server listening port:'+PORT);

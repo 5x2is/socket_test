@@ -7,10 +7,16 @@
 	<body>
 	    <h1>Socket IOを使って見るずら</h1>
 		<form>
-			<input id='input_msg' autocomplete='off'/><button>Send</button>
+			<button id='imput_msg'>花丸!</button>
 		</form>
+		<ul id='messages'></ul>
 		<script>
-			const socket = io();
+			const socketio = io();
+			$(function(){
+				socketio.on('message',(msg)=>{
+					$('#messages').append($('<li>').text(msg));
+				});
+			});
 		</script>
 	</body>
 </html>
