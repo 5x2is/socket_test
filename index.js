@@ -16,18 +16,17 @@ const pool = mariadb.createPool({
 });
 async function rowDatabase(queryText){
 	let conn;
+	let rows; 
 	try{
 		console.log(queryText);
 		conn = await pool.getConnection();
-		let rows = await conn.query(queryText);
+		rows = await conn.query(queryText);
 		console.log(rows);
 		
-		console.log('2');
-		return rows;
 	}catch(err){
 		console.log('err');
 		console.log(err);
-	}finally(rows){
+	}finally{
 		if(conn){
 			console.log('final');
 			conn.end();
