@@ -18,17 +18,14 @@ async function rowDatabase(queryText){
 	let conn;
 	let rows; 
 	try{
-		console.log(queryText);
 		conn = await pool.getConnection();
 		rows = await conn.query(queryText);
 		console.log(rows);
 		
 	}catch(err){
-		console.log('err');
 		console.log(err);
 	}finally{
 		if(conn){
-			console.log('final');
 			conn.end();
 			return rows;
 		}
@@ -41,8 +38,7 @@ io.on('connection',(socket)=>{
 	socket.on('message',(msg)=>{
 		io.emit('message',msg);
 		rowDatabase(msg).then((rows)=>{
-			console.log('rows'+rows);
-			io.emit('message',rows);
+			io.emit('message',rows[0]);
 		});
 	});
 });
