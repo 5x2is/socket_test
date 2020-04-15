@@ -25,8 +25,10 @@ async function rowDatabase(queryText){
 		console.log('2');
 		return rows;
 	}catch(err){
+		console.log('err');
 		console.log(err);
 	}finally{
+		console.log('final');
 		if(conn){
 			return conn.end();
 		}
