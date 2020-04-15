@@ -19,8 +19,8 @@ async function rowDatabase(queryText){
 	let rows; 
 	try{
 		conn = await pool.getConnection();
-		rows = await conn.query(queryText);
-		console.log(rows);
+		rows = await conn.query('select * from positions');
+		console.log(rows[0].openLimit);
 		
 	}catch(err){
 		console.log(err);
@@ -42,7 +42,8 @@ io.on('connection',(socket)=>{
 		});
 	});
 });
-
+/*
 http.listen(PORT,()=>{
 	console.log('server listening port:'+PORT);
 });
+*/
