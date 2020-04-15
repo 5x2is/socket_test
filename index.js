@@ -12,15 +12,16 @@ const pool = mariadb.createPool({
 	user:'root',
 	password:keys.mariadb[1],
 	port:3306,
-	detabase:'my_database'
+	database:'my_database'
 });
 async function rowDatabase(queryText){
 	let conn;
 	try{
 		console.log(queryText);
 		conn = await pool.getConnection();
-		const rows = await conn.query(queryText);
+		let rows = await conn.query(queryText);
 		console.log(rows);
+		
 		console.log('2');
 		return rows;
 	}catch(err){
@@ -38,7 +39,7 @@ io.on('connection',(socket)=>{
 	socket.on('message',(msg)=>{
 		io.emit('message',msg);
 		rowDatabase(msg).then((rows)=>{
-			console.log('1');
+			console.log('rows'+rows);
 			io.emit('message',rows);
 		});
 	});
