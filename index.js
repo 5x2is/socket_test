@@ -19,7 +19,7 @@ async function rowDatabase(queryText){
 		conn = await pool.getConnection();
 		const rows = await conn.query(queryText);
 		console.log(rows);
-		resolve(rows);
+		return rows;
 	}catch(err){
 		console.log(err);
 	}finally{
