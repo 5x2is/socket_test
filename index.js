@@ -19,6 +19,7 @@ async function rowDatabase(queryText){
 		conn = await pool.getConnection();
 		const rows = await conn.query(queryText);
 		console.log(rows);
+		resolve(rows);
 	}catch(err){
 		console.log(err);
 	}finally{
@@ -32,8 +33,9 @@ app.get('/',(req,res)=>{
 });
 io.on('connection',(socket)=>{
 	socket.on('message',(msg)=>{
-		rowDatabase('SHOW DATABASE');
-		//io.emit('message',msg);
+		rowDatabase(msg).then((rows)=>{
+			io.emit('message',rows);
+		});
 	});
 });
 
