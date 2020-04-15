@@ -21,6 +21,7 @@ async function rowDatabase(){
 	try{
 		conn = await pool.getConnection();
 		rows = await conn.query('select * from positions');
+		console.log(rows.length);
 		console.log(rows[0].openLimit);
 		
 	}catch(err){
