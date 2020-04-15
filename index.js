@@ -27,10 +27,11 @@ async function rowDatabase(queryText){
 	}catch(err){
 		console.log('err');
 		console.log(err);
-	}finally{
-		console.log('final');
+	}finally(rows){
 		if(conn){
-			return conn.end();
+			console.log('final');
+			conn.end();
+			return rows;
 		}
 	}
 }
