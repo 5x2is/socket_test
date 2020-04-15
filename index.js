@@ -38,8 +38,7 @@ io.on('connection',(socket)=>{
 	socket.on('message',(msg)=>{
 		io.emit('message',msg);
 		rowDatabase(msg).then((rows)=>{
-			console.log(rows[0])
-			io.emit('message',rows[0].height);
+			io.emit('message',JSON.stringify(rows,null);
 		});
 	});
 });
