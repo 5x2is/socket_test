@@ -23,7 +23,11 @@ async function rowDatabase(){
 		rows = await conn.query('select * from positions');
 		console.log(rows.length);
 		console.log(rows[0].openLimit);
-		
+
+		for(let key in rows[0]){
+			console.log(key);
+			console.log(rows[0][key]);
+		}
 	}catch(err){
 		console.log(err);
 	}finally{
