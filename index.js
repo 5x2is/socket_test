@@ -14,7 +14,8 @@ const pool = mariadb.createPool({
 	port:3306,
 	database:'my_database'
 });
-async function rowDatabase(queryText){
+rowDatabase();
+async function rowDatabase(){
 	let conn;
 	let rows; 
 	try{
