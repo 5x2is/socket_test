@@ -15,18 +15,18 @@ const pool = mariadb.createPool({
 	database:'my_database'
 });
 rowDatabase();
-async function rowDatabase(){
+console.log('end');
+function rowDatabase(){
 	let conn;
 	let rows; 
 	try{
-		conn = await pool.getConnection();
-		rows = await conn.query('select * from positions');
+		conn = pool.getConnection();
+		rows = conn.query('select * from positions');
 		console.log(rows.length);
 		console.log(rows[0].openLimit);
 
 		for(let key in rows[0]){
 			console.log(key);
-			console.log(rows[0][key]);
 		}
 	}catch(err){
 		console.log(err);
@@ -37,6 +37,7 @@ async function rowDatabase(){
 		}
 	}
 }
+/*
 app.get('/',(req,res)=>{
 	res.sendFile(__dirname+'/index.html');
 });
@@ -48,7 +49,6 @@ io.on('connection',(socket)=>{
 		});
 	});
 });
-/*
 http.listen(PORT,()=>{
 	console.log('server listening port:'+PORT);
 });
