@@ -38,7 +38,7 @@ io.on('connection',(socket)=>{
 	socket.on('message',(msg)=>{
 		io.emit('message',msg);
 		rowDatabase(msg).then((rows)=>{
-			io.emit('message',JSON.stringify(rows,null);
+			io.emit('message',JSON.stringify(rows,null));
 		});
 	});
 });
