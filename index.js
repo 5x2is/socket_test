@@ -54,7 +54,7 @@ io.on('connection',(socket)=>{
 function wsLog(logText){
 	console.log('log');
 	if(socketCon){
-		ev.data('log',logText);	
+		ev.emit('log',logText);	
 	}
 	time = new Date();
 }
