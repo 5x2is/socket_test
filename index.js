@@ -5,6 +5,8 @@ const http = require('http').Server(app);
 const PORT = process.env.PORT || 4000;
 const io = require('socket.io')(http);
 const mariadb = require('mariadb');
+const EventEmitter = require('events').EventEmitter;
+const ev = new EventEmitter();
 //const keys = JSON.parse(fs.readFileSync('../keys/keyList.json'));
 const keys = JSON.parse(process.env['MARIA']);
 const pool = mariadb.createPool({
@@ -14,14 +16,11 @@ const pool = mariadb.createPool({
 	port:3306,
 	database:'my_database'
 });
-rowDatabase();
-console.log('end');
-function rowDatabase(){
+//rowDatabase();
+async function rowDatabase(){
 	let conn;
 	let rows; 
 	try{
-		conn = pool.getConnection();
-		rows = conn.query('select * from positions');
 		console.log(rows.length);
 		console.log(rows[0].openLimit);
 
@@ -37,19 +36,28 @@ function rowDatabase(){
 		}
 	}
 }
-/*
+var socketCon = false;
 app.get('/',(req,res)=>{
 	res.sendFile(__dirname+'/index.html');
 });
 io.on('connection',(socket)=>{
-	socket.on('message',(msg)=>{
-		io.emit('message',msg);
-		rowDatabase(msg).then((rows)=>{
-			io.emit('message',JSON.stringify(rows,null));
-		});
+	socketCon = true;
+	ev.on('log',logText=>{
+		io.emit('message',logText);
+	})
+	socket.on('disconnect',()=>{
+		socketCon = false;
 	});
 });
+function wsLog(logText){
+	if(socketCon){
+		ev.data('log',logText);	
+	}
+	time = new Date();
+}
 http.listen(PORT,()=>{
 	console.log('server listening port:'+PORT);
 });
-*/
+var time;
+time = new Date();
+setInterval(()=>{wsLog(time)},3000)
