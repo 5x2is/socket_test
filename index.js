@@ -56,11 +56,10 @@ function wsLog(logText){
 	if(socketCon){
 		ev.emit('log',logText);	
 	}
-	time = new Date();
+	time++;
 }
 http.listen(PORT,()=>{
 	console.log('server listening port:'+PORT);
 });
-var time;
-time = new Date();
+var time = 0;
 setInterval(()=>{wsLog(time)},3000)
