@@ -42,14 +42,17 @@ app.get('/',(req,res)=>{
 });
 io.on('connection',(socket)=>{
 	socketCon = true;
+	console.log(socketCon);
 	ev.on('log',logText=>{
 		io.emit('message',logText);
 	})
 	socket.on('disconnect',()=>{
+		console.log('disconnect');
 		socketCon = false;
 	});
 });
 function wsLog(logText){
+	console.log('log');
 	if(socketCon){
 		ev.data('log',logText);	
 	}
